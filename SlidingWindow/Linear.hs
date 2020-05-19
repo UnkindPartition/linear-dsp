@@ -32,11 +32,11 @@ push ::
   SlidingWindow a #->
   SlidingWindow a
 push a (SlidingWindow size buf position startPtr endPtr) =
-  let
+  SlidingWindow size buf' (position+1) startPtr' endPtr'
+  where
     buf' = write buf endPtr a
     startPtr' =
       if startPtr == endPtr
         then (startPtr + 1) `mod` size
         else startPtr
     endPtr' = (endPtr + 1) `mod` size
-  in SlidingWindow size buf' (position+1) startPtr' endPtr'
